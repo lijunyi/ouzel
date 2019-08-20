@@ -5,6 +5,8 @@
 
 #include <cstdint>
 #include <vector>
+#include "audio/mixer/Object.hpp"
+#include "audio/mixer/Emitter.hpp"
 
 namespace ouzel
 {
@@ -12,7 +14,7 @@ namespace ouzel
     {
         namespace mixer
         {
-            class Source
+            class Source: public Object
             {
             public:
                 Source() noexcept = default;
@@ -22,6 +24,9 @@ namespace ouzel
                 virtual void stop(bool shouldReset) = 0;
 
                 virtual void getSamples(uint32_t frames, uint16_t channels, uint32_t sampleRate, std::vector<float>& samples) = 0;
+
+            private:
+                std::unique_ptr<Emitter> emitter;
             };
         }
     } // namespace audio
